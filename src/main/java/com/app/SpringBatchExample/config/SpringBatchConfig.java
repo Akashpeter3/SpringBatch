@@ -87,6 +87,7 @@ public class SpringBatchConfig {
 
     }
 
+    @Bean
     public Job job(){
        return jobBuilderFactory.get("importCustomerJob")
                 .flow(step1())
