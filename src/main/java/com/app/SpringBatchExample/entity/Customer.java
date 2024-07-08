@@ -1,9 +1,15 @@
 package com.app.SpringBatchExample.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "CUSTOMER_INFO")
+@Setter
+@Getter
 public class Customer {
 
     @Id
