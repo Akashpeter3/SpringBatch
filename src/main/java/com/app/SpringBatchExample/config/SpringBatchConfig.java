@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Repository;
 
 @Configuration
@@ -83,6 +85,7 @@ public class SpringBatchConfig {
                 .reader(flatFileItemReader())
                 .processor(processorConfig())
                 .writer(writer())
+                .taskExecutor(taskExecutor())
                 .build();
 
     }
@@ -93,6 +96,13 @@ public class SpringBatchConfig {
                 .flow(step1())
                 .end()
                 .build();
+    }
+
+    @Bean
+    public TaskExecutor taskExecutor(){
+        SimpleAsyncTaskExecutor asyncTaskExecutor = new SimpleAsyncTaskExecutor();
+        asyncTaskExecutor.setConcurrencyLimit(10);
+        return asyncTaskExecutor;
     }
 
 
